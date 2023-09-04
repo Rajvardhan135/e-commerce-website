@@ -1,0 +1,207 @@
+.home .hero-section {
+  margin-top: 56px;
+  background-color: #f0f0f0;
+  height: 100vh;
+  display: flex;
+}
+.home .hero-section .hero-img {
+  background-image: url("../../assets/home-hero.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 45%;
+}
+@media (max-width: 768px) {
+  .home .hero-section .hero-img {
+    display: none;
+  }
+}
+.home .hero-section .hero-container {
+  width: 55%;
+  background-color: #E24357;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+  padding: 30px;
+}
+@media (max-width: 768px) {
+  .home .hero-section .hero-container {
+    width: 100%;
+    background-image: url("../../assets/home-hero.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+}
+.home .hero-section .hero-container .header-container {
+  display: flex;
+  align-items: center;
+}
+.home .hero-section .hero-container .header-container .hero-h1 {
+  font-size: 36px;
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+  .home .hero-section .hero-container .header-container .hero-h1 {
+    font-size: 24px;
+    color: #E24357;
+  }
+}
+.home .hero-section .hero-container .header-container .head-bar {
+  width: 6px;
+  height: 72px;
+  background-color: white;
+  margin-right: 10px;
+}
+@media (max-width: 768px) {
+  .home .hero-section .hero-container .header-container .head-bar {
+    background-color: #E24357;
+    height: 52px;
+  }
+}
+.home .hero-section .hero-container .hero-text {
+  color: #E4E4E4;
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: 18.72px;
+  text-transform: uppercase;
+}
+@media (max-width: 992px) {
+  .home .hero-section .hero-container .hero-text {
+    font-size: 28px;
+    letter-spacing: 12px;
+  }
+}
+@media (max-width: 768px) {
+  .home .hero-section .hero-container .hero-text {
+    font-size: 20px;
+    color: #E24357;
+    letter-spacing: 10px;
+  }
+}
+.home .hero-section .hero-container .hero-button {
+  border-radius: 53px;
+  background: #000;
+  color: white;
+  width: 192px;
+  height: 58px;
+}
+.home .hero-section .hero-container .hero-button:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+.home .features {
+  padding: 32px;
+  display: flex;
+  justify-content: space-between;
+}
+@media (max-width: 768px) {
+  .home .features {
+    padding: 24px 10px;
+  }
+}
+.home .features .feature-container {
+  padding: 20px 35px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .home .features .feature-container {
+    padding: 10px 10px;
+  }
+}
+.home .features .feature-container .feature-icon {
+  width: 36px;
+  height: 24px;
+}
+.home .features .feature-container .feature-text {
+  color: #000;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+@media (max-width: 768px) {
+  .home .features .feature-container .feature-text {
+    font-size: 12px;
+  }
+}
+.home .collection-section {
+  padding: 80px;
+}
+@media (max-width: 768px) {
+  .home .collection-section {
+    padding: 60px;
+  }
+}
+@media (max-width: 420px) {
+  .home .collection-section {
+    padding: 40px;
+  }
+}
+.home .collection-section .collection-header {
+  margin: 10px;
+  text-align: center;
+}
+.home .collection-section .collections {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  height: 600px;
+  -moz-column-gap: 50px;
+       column-gap: 50px;
+  row-gap: 20px;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .home .collection-section .collections {
+    height: 400px;
+    background-size: contain;
+  }
+}
+@media (max-width: 420px) {
+  .home .collection-section .collections {
+    height: 200px;
+    background-size: contain;
+    -moz-column-gap: 20px;
+         column-gap: 20px;
+  }
+}
+.home .collection-section .collections .collection-container:hover {
+  transform: scale(1.1);
+  transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+}
+.home .collection-section .collections .men-collection {
+  background-image: url("../../assets/mens-category.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  grid-row: span 2;
+}
+.home .collection-section .collections .women-collection {
+  background-image: url("../../assets/womens-categories.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  grid-row: span 2;
+}
+.home .collection-section .collections .jewelery-collection {
+  background-image: url("../../assets/jewellery-category.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.home .collection-section .collections .electronic-collection {
+  background-color: red;
+  background-image: url("../../assets/electronic-category.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.home .highest-rated-product-container {
+  padding: 32px;
+}
+.home .highest-rated-product-container .rating-header {
+  margin: 10px;
+  text-align: center;
+}/*# sourceMappingURL=home.styles.css.map */

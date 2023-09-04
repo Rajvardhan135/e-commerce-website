@@ -1,0 +1,12 @@
+.checkout {
+  margin-top: 80px;
+}
+.checkout .checkout-total {
+  margin: 50px 50px 0 50px;
+}
+.checkout .checkout-total .total {
+  font-size: 36px;
+}
+.checkout .checkout-total .total .total-cost {
+  color: green;
+}/*# sourceMappingURL=checkout.styles.css.map */

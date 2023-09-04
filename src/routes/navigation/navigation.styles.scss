@@ -1,0 +1,131 @@
+$extra-small-screen: 420px;
+$small-screen: 768px;
+$medium-screen: 992px;
+$large-screen: 1200px;
+$extra-large-screen: 1920;
+
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #E4E4E4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    width: 100vw;
+    .nav-links {
+        display: flex;
+        @media (max-width: $small-screen) {
+            display: none;
+        }
+    }
+
+    .nav-buttons {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .nav-button {
+            margin: 0 10px;
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+
+        .menu {
+            display: none;
+            @media (max-width: $small-screen) {
+                display: inline;
+                &:hover {
+                    opacity: 1;
+                }
+                &:active {
+                    opacity: 0.5; // Reduce opacity when the icon is pressed
+                  }
+                
+            }
+        }
+    }
+}
+
+.nav-link {
+    color: #000;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin: 0 10px;
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+.drawer-nav {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin-top: 56px;
+    align-items: center;
+    background-color: #cccccc;
+    height: auto;
+    // transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+
+    .drawer-nav-link {
+        text-align: right;
+        margin: 20px 0;
+    }
+
+    .drawer-first-link {
+        margin-top: 40px;
+    }
+
+    .drawer-last-link {
+        margin-bottom: 40px;
+    }
+}
+
+.cart-nav {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin-top: 56px;
+    background-color: #cccccc;
+    height: auto;
+    // transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    max-height: 400px;
+    overflow: scroll;
+    
+}
+
+.open {
+    right: 0;
+    transform: translateX(0);
+    box-shadow: -24px 22px 6px 0px rgba(0, 0, 0, 0.25);
+}
+
+.shopping-bag {
+    position: relative;
+    .item-num {
+        position: relative;
+        top: -8px;
+        left: -33px;
+    }
+}

@@ -1,0 +1,118 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #E4E4E4;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100vw;
+}
+.nav .nav-links {
+  display: flex;
+}
+@media (max-width: 768px) {
+  .nav .nav-links {
+    display: none;
+  }
+}
+.nav .nav-buttons {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.nav .nav-buttons .nav-button {
+  margin: 0 10px;
+}
+.nav .nav-buttons .nav-button:hover {
+  opacity: 0.5;
+}
+.nav .nav-buttons .menu {
+  display: none;
+}
+@media (max-width: 768px) {
+  .nav .nav-buttons .menu {
+    display: inline;
+  }
+  .nav .nav-buttons .menu:hover {
+    opacity: 1;
+  }
+  .nav .nav-buttons .menu:active {
+    opacity: 0.5;
+  }
+}
+
+.nav-link {
+  color: #000;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin: 0 10px;
+}
+.nav-link:hover {
+  opacity: 0.5;
+}
+
+.drawer-nav {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-top: 56px;
+  align-items: center;
+  background-color: #cccccc;
+  height: auto;
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+.drawer-nav .drawer-nav-link {
+  text-align: right;
+  margin: 20px 0;
+}
+.drawer-nav .drawer-first-link {
+  margin-top: 40px;
+}
+.drawer-nav .drawer-last-link {
+  margin-bottom: 40px;
+}
+
+.cart-nav {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-top: 56px;
+  background-color: #cccccc;
+  height: auto;
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  max-height: 400px;
+  overflow: scroll;
+}
+
+.open {
+  right: 0;
+  transform: translateX(0);
+  box-shadow: -24px 22px 6px 0px rgba(0, 0, 0, 0.25);
+}
+
+.shopping-bag {
+  position: relative;
+}
+.shopping-bag .item-num {
+  position: relative;
+  top: -8px;
+  left: -33px;
+}/*# sourceMappingURL=navigation.styles.css.map */

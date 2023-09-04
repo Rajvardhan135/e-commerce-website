@@ -1,24 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import './App.scss';
+
+import Home from './routes/home/home.component';
+import Checkout from './routes/checkout/checkout.component';
+import Navigation from './routes/navigation/navigation.component';
+import SignIn from './routes/sign-in/sign-in.component';
+import SignUp from './routes/sign-up/sign-up.component';
+import Shop from './routes/shop/shop.component';
+
+import { setCategory } from './store/categories/category.action';
+import { getAllCategories } from './utils/fakestore/fakestore.utils';
+import { getProducts } from './utils/fakestore/fakestore.utils';
+import { useDispatch } from 'react-redux';
+
+import { onAuthStateChangedListener } from './utils/firebase/firebase.utils';
+import { setCurrentUser } from './store/user/user.action';
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    let categoriesData = {}
+    async function fetchData() {
+      try {
+        const categories = await getAllCategories();
+        categories.forEach(async (category) => {
+          categoriesData[category] = await getProducts(category)
+        }
+        )
+        dispatch(setCategory(categoriesData))
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchData();
+  }, [dispatch]);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      dispatch(setCurrentUser(user));
+    });
+
+    return unsubscribe
+  }, [dispatch])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path='sign-in' element={<SignIn />} />
+      <Route path='sign-up' element={<SignUp />} />
+      <Route path='/' element={<Navigation />}>
+        <Route index element={<Home />} />
+        <Route path='shop/*' element={<Shop />} />
+        <Route path='checkout' element={<Checkout />} />
+      </Route>
+    </Routes>
   );
 }
 

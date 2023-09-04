@@ -1,0 +1,25 @@
+$extra-small-screen: 420px;
+$small-screen: 768px;
+$medium-screen: 992px;
+$large-screen: 1200px;
+$extra-large-screen: 1920;
+
+.category-section {
+    margin-top: 60px;
+    padding: 30px 20px;
+    .category-header {
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .category-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        .preview-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    }
+}

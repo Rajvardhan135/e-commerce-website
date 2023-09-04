@@ -1,0 +1,20 @@
+.google-btn {
+  background-color: #E3E3E3;
+  color: black;
+  padding: 8px;
+  border-radius: 40px;
+  text-align: center;
+  cursor: pointer;
+  max-width: 360px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.google-btn .google-icon {
+  width: 20px;
+  height: 20px;
+}
+.google-btn:hover {
+  opacity: 0.6;
+}/*# sourceMappingURL=googleButton.styles.css.map */

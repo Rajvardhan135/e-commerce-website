@@ -1,0 +1,18 @@
+.category-section {
+  margin-top: 60px;
+  padding: 30px 20px;
+}
+.category-section .category-header {
+  text-align: center;
+  text-transform: uppercase;
+}
+.category-section .category-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.category-section .category-container .preview-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}/*# sourceMappingURL=category.styles.css.map */
