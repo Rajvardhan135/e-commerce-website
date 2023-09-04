@@ -103,7 +103,7 @@
 }
 .home .features .feature-container {
   padding: 20px 35px;
-  border: 1px solid black;
+  border: 1px solid white;
   display: flex;
   align-items: center;
 }
@@ -117,7 +117,7 @@
   height: 24px;
 }
 .home .features .feature-container .feature-text {
-  color: #000;
+  color: white;
   font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;

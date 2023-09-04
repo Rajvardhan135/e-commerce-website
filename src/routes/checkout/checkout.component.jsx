@@ -24,7 +24,7 @@ const Checkout = () => {
                 {cartItems.map((item) => <CheckoutItem item={item} key={item.id} />)}
             </div>
             <div className='checkout-total'>
-                <span className='total'>Total $<span className='total-cost'>{cartTotal}</span></span>
+                <span className='total'>Total $<span className='total-cost'>{cartTotal.toFixed(2)}</span></span>
             </div>
             <CartButton className='checkout-button' style={{ margin: '0px 50px 50px 50px', fontSize: 36, padding: '10px' }} onClick={onClickHandler}>Order now</CartButton>
         </div>
