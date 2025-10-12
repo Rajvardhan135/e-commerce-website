@@ -16,6 +16,8 @@ import { useDispatch } from 'react-redux';
 
 import { onAuthStateChangedListener } from './utils/firebase/firebase.utils';
 import { setCurrentUser } from './store/user/user.action';
+import PaymentSuccess from './routes/successpage/SuccessPage';
+import PaymentFail from './routes/PaymentFail/PaymentFail';
 
 function App() {
   const dispatch = useDispatch();
@@ -53,6 +55,8 @@ function App() {
         <Route index element={<Home />} />
         <Route path='shop/*' element={<Shop />} />
         <Route path='checkout' element={<Checkout />} />
+        <Route path='payment-success' element={<PaymentSuccess />} />
+        <Route path='payment-fail' element={<PaymentFail />} />
       </Route>
     </Routes>
   );
