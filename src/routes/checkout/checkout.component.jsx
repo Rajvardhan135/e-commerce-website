@@ -13,10 +13,52 @@ const Checkout = () => {
     const currentUser = useSelector(selectCurrentUser);
     const navigate = useNavigate();
 
-    const onClickHandler = () => {
-        if (cartTotal > 0) currentUser ? alert('Thank you') : navigate('/sign-in')
-        else alert('No item to buy')
-    }
+  const onClickHandler = async () => {
+  if (cartTotal <= 0) {
+    alert('No item to buy');
+    return;
+  }
+
+  if (!currentUser) {
+    navigate('/sign-in');
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:8000/payu/initiate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        amount: cartTotal.toFixed(2),
+        firstname: currentUser.displayName || "Guest",
+        email: currentUser.email,
+        phone: "9999999999",
+        productinfo: "Cart Checkout",
+      }),
+    });
+
+    const { action, params } = await response.json();
+
+    // Build form dynamically
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = action;
+
+    Object.keys(params).forEach(key => {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = key;
+      input.value = params[key];
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
+  } catch (error) {
+    console.error("Payment Error:", error);
+  }
+};
+
 
     return (
         <div className='checkout'>
