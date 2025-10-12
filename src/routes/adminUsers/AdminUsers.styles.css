@@ -1,0 +1,83 @@
+.admin-container {
+  max-width: 950px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #121212;
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-family: 'Inter', sans-serif;
+}
+
+.admin-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #a78bfa;
+}
+
+.add-user-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.add-user-form input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table th,
+.users-table td {
+  border: 1px solid #333;
+  padding: 10px;
+  text-align: left;
+}
+
+.users-table th {
+  background-color: #1e1e1e;
+  color: #bbb;
+}
+
+.users-table tr:nth-child(even) {
+  background-color: #1a1a1a;
+}
+
+.blocked-user {
+  opacity: 0.5;
+}
+
+button {
+  margin-right: 5px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.add-btn { background-color: #22c55e; color: #fff; }
+.edit-btn { background-color: #2563eb; color: #fff; }
+.save-btn { background-color: #22c55e; color: #fff; }
+.cancel-btn { background-color: #ef4444; color: #fff; }
+.block-btn { background-color: #facc15; color: #000; }
+.delete-btn { background-color: #dc2626; color: #fff; }
+
+button:hover {
+  opacity: 0.9;
+}
+
+.loader {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 1.2rem;
+  color: #a78bfa;
+}
