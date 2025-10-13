@@ -1,0 +1,69 @@
+import { getFirestore, collection, addDoc, getDocs, query, where } from "firebase/firestore";
+import { db } from "./firebase.utils";
+
+/* ============================
+   🔹 FETCH FUNCTIONS
+============================ */
+
+export const getAllCategories = async () => {
+  try {
+    const snapshot = await getDocs(collection(db, "categories"));
+    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
+};
+
+export const getProducts = async (category) => {
+  try {
+    const q = query(collection(db, "products"), where("category", "==", category));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error("Error fetching products by category:", error);
+    return [];
+  }
+};
+
+export const getAllProducts = async () => {
+  try {
+    const snapshot = await getDocs(collection(db, "products"));
+    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error("Error fetching all products:", error);
+    return [];
+  }
+};
+
+/* ============================
+   🔹 ADMIN: ADD FUNCTIONS
+============================ */
+
+export const addCategory = async (categoryName) => {
+  try {
+    const docRef = await addDoc(collection(db, "categories"), {
+      name: categoryName,
+      createdAt: new Date(),
+    });
+    console.log("✅ Category added with ID:", docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error("Error adding category:", error);
+    throw error;
+  }
+};
+
+export const addProduct = async (product) => {
+  try {
+    const docRef = await addDoc(collection(db, "products"), {
+      ...product,
+      createdAt: new Date(),
+    });
+    console.log("✅ Product added with ID:", docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error("Error adding product:", error);
+    throw error;
+  }
+};

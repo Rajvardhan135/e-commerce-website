@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProducts } from '../../utils/fakestore/fakestore.utils';
+// import { getProducts } from '../../utils/fakestore/fakestore.utils';
+import { getProducts } from '../../utils/firebase/firebaseStoreServices';
 import './category.styles.scss'
 import ProductCard from '../../components/product-card/product-card.component';
 
@@ -13,12 +14,12 @@ const Category = () => {
             try {
                 switch (category) {
                     case 'mens': {
-                        const productResponse = await getProducts(`men's clothing`);
+                        const productResponse = await getProducts(`mens`);
                         setProducts(productResponse);
                         break;
                     }
                     case 'womens': {
-                        const productResponse = await getProducts(`women's clothing`);
+                        const productResponse = await getProducts(`womens`);
                         setProducts(productResponse)
                         break;
                     }

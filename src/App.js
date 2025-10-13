@@ -12,7 +12,8 @@ import AdminDashboard from './routes/admin/admin-dashboard.component';
 
 import { setCategory } from './store/categories/category.action';
 import { getAllCategories } from './utils/fakestore/fakestore.utils';
-import { getProducts } from './utils/fakestore/fakestore.utils';
+// import { getProducts } from './utils/fakestore/fakestore.utils';
+import { getProducts } from './utils/firebase/firebaseStoreServices';
 import { useDispatch } from 'react-redux';
 
 import { onAuthStateChangedListener } from './utils/firebase/firebase.utils';
