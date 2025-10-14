@@ -10,7 +10,7 @@
   }
 }
 .sign-up-container .sign-up-image-container {
-  background-color: #000000;
+  background-color: #000;
   width: 60%;
   height: 100vh;
   padding: 20px;
@@ -36,8 +36,8 @@
   padding: 60px 50px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 @media (max-width: 768px) {
   .sign-up-container .sign-up-form-container {
@@ -60,7 +60,7 @@
   border-right: none;
   border-left: none;
   border-top: none;
-  margin: 40px 0;
+  margin: 30px 0;
   max-width: 365px;
   background-color: transparent;
 }
@@ -69,4 +69,4 @@
   border-right: none;
   border-left: none;
   border-top: none;
-}/*# sourceMappingURL=sign-up.styles.css.map */
+}

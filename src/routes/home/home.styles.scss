@@ -1,211 +1,253 @@
-$extra-small-screen: 420px;
-$small-screen: 768px;
-$medium-screen: 992px;
-$large-screen: 1200px;
-$extra-large-screen: 1920;
+$primary: #181b1e;
+$accent: #E24357;
+$bg: #f8f8f8;
 
 .home {
-    .hero-section {
-        margin-top: 56px; 
-        background-color: #f0f0f0;
-        height: 100vh;
+  background: $bg;
+  min-height: 100vh;
+
+  .hero-section {
+    margin-top: 100px;
+    background-color: #f0f0f0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+      min-height: unset;
+    }
+
+    .hero-img {
+      background-image: url("../../assets/home-hero.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 45%;
+      min-height: 320px;
+
+      @media (max-width: 900px) {
+        width: 100%;
+        height: 180px;
+        min-height: 180px;
+      }
+      @media (max-width: 600px) {
+        display: none;
+      }
+    }
+
+    .hero-container {
+      width: 55%;
+      background-color: $accent;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      color: white;
+      padding: 40px 32px;
+
+      @media (max-width: 900px) {
+        width: 100%;
+        padding: 32px 16px;
+        background-image: url("../../assets/home-hero.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+      @media (max-width: 600px) {
+        padding: 24px 8px;
+        background-image: none;
+      }
+
+      .header-container {
         display: flex;
-    
-        .hero-img {
-            background-image: url('../../assets/home-hero.png');
-            background-size: cover;
-            background-repeat: no-repeat;
-            height: 100%;
-            width: 45%;
-            @media (max-width: $small-screen) {
-                display: none;
-            }
-        }
-        .hero-container {
-            width: 55%;
-            background-color: #E24357;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            color: white;
-            padding: 30px;
-            @media (max-width: $small-screen) {
-                width: 100%;
-                background-image: url('../../assets/home-hero.png');
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center center;
-            }
-    
-            .header-container {
-                display: flex;
-                align-items: center;
-    
-                .hero-h1 {
-                    font-size: 36px;
-                    font-weight: bold;
+        align-items: center;
+        margin-bottom: 12px;
 
-                    @media (max-width: $small-screen) {
-                        font-size: 24px;
-                        color: #E24357;
-                    }
-                }
-        
-                .head-bar {
-                    width: 6px;
-                    height: 72px;
-                    background-color: white;
-                    margin-right: 10px;
-                    @media (max-width: $small-screen) {
-                        background-color: #E24357;
-                        height: 52px;
-                    }
-                }
-            }
-            .hero-text {
-                color: #E4E4E4;
-                font-size: 36px;
-                font-weight: 400;
-                letter-spacing: 18.72px;
-                text-transform: uppercase;
-                @media (max-width: $medium-screen) {
-                    font-size: 28px;
-                    letter-spacing: 12px;
-                }
-                @media (max-width: $small-screen) {
-                    font-size: 20px;
-                    color: #E24357;
-                    letter-spacing: 10px;
-                }
-            }
-            .hero-button {
-                border-radius: 53px;
-                background: #000;
-                color: white;
-                width: 192px;
-                height: 58px;
-    
-                &:hover {
-                    opacity: 0.6;
-                    cursor: pointer;
-                }
-            }
-        }
-    }
+        .head-bar {
+          width: 6px;
+          height: 72px;
+          background-color: white;
+          margin-right: 10px;
 
-    .features {
-        padding: 32px;
-        display: flex;
-        justify-content: space-between;
-        @media (max-width: $small-screen) {
-            padding: 24px 10px;
-        }
-        
-        .feature-container {
-            padding: 20px 35px;
-            border: 1px solid white;
-            display: flex;
-            align-items: center;
-            @media (max-width: $small-screen) {
-                padding: 10px 10px;
-            }
-
-            .feature-icon {
-                width: 36px;
-                height: 24px;
-            }
-
-            .feature-text {
-                color: white;
-                font-size: 16px;
-                font-weight: 700;
-                text-transform: uppercase;
-                @media (max-width: $small-screen) {
-                    font-size: 12px;
-                }
-            }
-        }
-    }
-
-    .collection-section {
-        padding: 80px;
-        @media (max-width: $small-screen) {
-            padding: 60px;
-        }
-        @media (max-width: $extra-small-screen) {
-            padding: 40px;
+          @media (max-width: 900px) {
+            height: 52px;
+          }
+          @media (max-width: 600px) {
+            background-color: $accent;
+          }
         }
 
-        .collection-header {
-            margin: 10px;
-            text-align: center;
+        .hero-h1 {
+          font-size: 2.2rem;
+          font-weight: bold;
+          @media (max-width: 900px) {
+            font-size: 1.4rem;
+            color: #fff;
+          }
         }
+      }
 
-        .collections {
-            display: grid;
-            grid-template-rows: 1fr 1fr 1fr;
-            grid-template-columns: 1fr 1fr;
-            width: 100%;
-            height: 600px;
-            column-gap: 50px;
-            row-gap: 20px;
-            cursor: pointer;
-            @media (max-width: $small-screen) {
-                height: 400px;
-                background-size: contain;
-            }
-            @media (max-width: $extra-small-screen) {
-                height: 200px;
-                background-size: contain;
-                column-gap: 20px;
-            }
+      .hero-text {
+        color: #E4E4E4;
+        font-size: 1.5rem;
+        font-weight: 400;
+        letter-spacing: 8px;
+        text-transform: uppercase;
+        margin-bottom: 24px;
 
-            .collection-container {
-                &:hover {
-                    transform: scale(1.1);
-                    transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
-                }
-            }
-            
-            .men-collection {
-                background-image: url('../../assets/mens-category.png');
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position: center center;
-                grid-row: span 2;
-            }
-
-            .women-collection {
-                background-image: url('../../assets/womens-categories.png');
-                background-repeat: no-repeat;
-                background-size: cover;
-                grid-row: span 2;
-
-            }
-
-            .jewelery-collection {
-                background-image: url('../../assets/jewellery-category.png');
-                background-repeat: no-repeat;
-                background-size: cover;
-            }
-
-            .electronic-collection {
-                background-color: red;
-                background-image: url('../../assets/electronic-category.png');
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position: center;
-            }
+        @media (max-width: 900px) {
+          font-size: 1.1rem;
+          letter-spacing: 4px;
         }
-    }
+      }
 
-    .highest-rated-product-container {
-        padding: 32px;
-
-        .rating-header {
-            margin: 10px;
-            text-align: center;
+      .hero-button {
+        border-radius: 53px;
+        background: #000;
+        color: white;
+        width: 160px;
+        height: 48px;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        margin-top: 12px;
+        transition: opacity 0.2s, background 0.2s;
+        &:hover {
+          opacity: 0.8;
+          background: darken(#000, 10%);
+          cursor: pointer;
         }
-    }
+      }
 }
+  }
 
+  .features {
+    padding: 32px 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    background: $accent;
+    border-radius: 24px 24px 24px 24px;
+    margin-bottom: 32px;
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 24px 6px;
+    }
+
+    .feature-container {
+      padding: 20px 24px;
+      border: 1px solid #fff;
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      gap: 12px;
+      min-width: 180px;
+
+      .feature-icon {
+        width: 36px;
+        height: 24px;
+      }
+      .feature-text {
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        @media (max-width: 600px) {
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
+
+  .collection-section {
+    padding: 48px 12px 24px 12px;
+
+    @media (max-width: 900px) {
+      padding: 32px 4px 16px 4px;
+    }
+    @media (max-width: 600px) {
+      padding: 18px 2px 8px 2px;
+    }
+
+    .collection-header {
+      margin: 10px;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: $primary;
+    }
+
+    .collections {
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      height: 600px;
+      column-gap: 30px;
+      row-gap: 20px;
+      cursor: pointer;
+
+      @media (max-width: 900px) {
+        height: 400px;
+        column-gap: 16px;
+      }
+      @media (max-width: 600px) {
+        height: 220px;
+        column-gap: 8px;
+        row-gap: 8px;
+      }
+
+      .collection-container {
+        border-radius: 18px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        transition: transform 0.3s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+        &:hover {
+          transform: scale(1.04);
+        }
+      }
+
+      .men-collection {
+        background-image: url("../../assets/mens-category.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        grid-row: span 2;
+      }
+      .women-collection {
+        background-image: url("../../assets/womens-categories.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        grid-row: span 2;
+      }
+      .jewelery-collection {
+        background-image: url("../../assets/jewellery-category.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .electronic-collection {
+        background-image: url("../../assets/electronic-category.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+    }
+  }
+
+  .highest-rated-product-container {
+    padding: 32px 12px;
+    .rating-header {
+      margin: 10px;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: $primary;
+    }
+  }
+}

@@ -2,4 +2,20 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-}/*# sourceMappingURL=category-preview.styles.css.map */
+  gap: 32px;
+  padding: 24px 0;
+}
+
+@media (max-width: 900px) {
+  .preview-container {
+    gap: 20px;
+    padding: 16px 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .preview-container {
+    gap: 12px;
+    padding: 8px 0;
+  }
+}
