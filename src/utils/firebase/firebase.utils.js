@@ -128,3 +128,4 @@ export const getCategoryData = async (category) => {
     const docSnap = await getDoc(docRef);
     return docSnap.exists() ? docSnap.data() : null;
 };
+export default app;
