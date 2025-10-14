@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { auth, db, onAuthStateChangedListener } from "../../utils/firebase/firebase.utils";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
-
 import "./profile.styles.css";
-
 export default function ProfilePage() {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState({
@@ -18,6 +16,7 @@ export default function ProfilePage() {
 
   // Listen to auth state
   useEffect(() => {
+    // seedTestData();
     const unsubscribe = onAuthStateChangedListener(async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);

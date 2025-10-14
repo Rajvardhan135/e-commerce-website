@@ -1,61 +1,109 @@
-.admin-dashboard {
-    max-width: 420px;
-    margin: 80px auto 0 auto;
-    background: #fff;
-    border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-    padding: 32px 24px;
-    display: flex;
+/* ======= Global Styles ======= */
+/* ======= Admin Panel Container ======= */
+.admin-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ======= Sections ======= */
+section {
+  margin-bottom: 40px;
+}
+
+/* ======= Inputs & Selects ======= */
+input[type="text"],
+input[type="number"],
+select {
+  padding: 8px 12px;
+  margin: 5px;
+  border: 1px solid #dcdde1;
+  border-radius: 5px;
+  outline: none;
+  font-size: 14px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  border-color: #487eb0;
+  box-shadow: 0 0 5px rgba(72, 126, 176, 0.3);
+}
+
+/* ======= Buttons ======= */
+button {
+  padding: 8px 14px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #487eb0;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #40739e;
+}
+
+/* ======= Lists ======= */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+li {
+  background-color: #f1f2f6;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+li button {
+  margin-left: 5px;
+}
+
+/* ======= Inline Editing ======= */
+li input[type="text"],
+li input[type="number"] {
+  width: 120px;
+  margin-right: 5px;
+}
+
+/* ======= Horizontal Divider ======= */
+hr {
+  border: none;
+  border-top: 1px solid #dcdde1;
+  margin: 30px 0;
+}
+
+/* ======= Responsive ======= */
+@media (max-width: 600px) {
+  .admin-container {
+    padding: 15px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  li {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+  }
 
-    h2 {
-        margin-bottom: 24px;
-        color: #181b1e;
-        font-size: 1.6rem;
-        font-weight: 700;
-    }
-
-    .admin-form {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-
-        input, textarea {
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 1rem;
-            background: #f8f8f8;
-            resize: none;
-        }
-
-        button {
-            background: #FFC802;
-            color: #181b1e;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 0;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            &:hover {
-                background: #e6b800;
-                color: #fff;
-            }
-        }
-    }
-
-    .success-msg {
-        color: #2e7d32;
-        margin-top: 16px;
-        font-weight: 600;
-    }
-    .error-msg {
-        color: #c62828;
-        margin-top: 16px;
-        font-weight: 600;
-    }
+  li button {
+    margin-top: 5px;
+  }
 }
