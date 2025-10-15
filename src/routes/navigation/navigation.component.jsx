@@ -7,13 +7,14 @@ import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { signOutUser } from '../../utils/firebase/firebase.utils';
 import './navigation.styles.scss'
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { selectCartCount } from '../../store/cart/cart.selector';
 import { selectIsCartOpen, selectCartItems } from '../../store/cart/cart.selector';
 import { setCartOpen } from '../../store/cart/cart.action';
 import { useDispatch } from 'react-redux';
 import CartPreview from '../../components/cart-preview/cart-preview.component';
 import { useNavigate } from 'react-router-dom';
+import { getAllProducts } from '../../utils/firebase/firebaseStoreServices';
 
 const Navigation = () => {
     const currentUser = useSelector(selectCurrentUser);
@@ -62,6 +63,9 @@ const Navigation = () => {
                     <NavLink className='nav-link' to='/shop/womens'>WOMEN</NavLink>
                     <NavLink className='nav-link' to='/shop/jewelery'>JEWELERY</NavLink>
                     <NavLink className='nav-link' to='/shop/electronics'>ELECTRONIC</NavLink>
+                </div>
+                <div className='nav-search'>
+                    <SearchBar />
                 </div>
                 <div className='nav-buttons'>
                     {currentUser ? (
@@ -172,6 +176,99 @@ const Navigation = () => {
         </div>
     );
 };
+
+// Local SearchBar component (defined before Navigation)
+function SearchBar() {
+    const [query, setQuery] = useState('')
+    const [suggestions, setSuggestions] = useState([])
+    const [show, setShow] = useState(false)
+    const allProductsRef = useRef([])
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        let mounted = true
+        const load = async () => {
+            try {
+                const prods = await getAllProducts()
+                if (!mounted) return
+                allProductsRef.current = prods || []
+            } catch (err) {
+                // ignore
+            }
+        }
+        load()
+        return () => { mounted = false }
+    }, [])
+
+    useEffect(() => {
+        if (!query) return setSuggestions([])
+        const q = query.toLowerCase()
+        const s = allProductsRef.current.filter(p => {
+            const label = (p.name || p.title || '').toLowerCase()
+            return label.includes(q)
+        }).slice(0,6)
+        setSuggestions(s)
+    }, [query])
+
+    const onSubmit = useCallback((e) => {
+        e && e.preventDefault()
+        // dispatch a custom event so pages can listen and apply query
+        window.dispatchEvent(new CustomEvent('global:search', { detail: { query } }))
+        // try to find an exact product match by name/title
+        const match = allProductsRef.current.find(p => ((p.name || p.title || '').toLowerCase() === (query || '').toLowerCase()))
+        if (match) {
+            const category = match.category || ''
+            if (category) navigate(`/shop/${category}?productId=${match.id}`)
+            else navigate('/shop')
+        } else if (suggestions && suggestions.length > 0) {
+            // fallback to first suggestion
+            const first = suggestions[0]
+            if (first.category) navigate(`/shop/${first.category}?productId=${first.id}`)
+            else navigate('/shop')
+        } else {
+            navigate('/shop')
+        }
+        setShow(false)
+    }, [query, suggestions, navigate])
+
+    const onFilterClick = () => {
+        window.dispatchEvent(new CustomEvent('global:toggleFilters'))
+    }
+
+    return (
+        <div className='global-search'>
+            <form onSubmit={onSubmit} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <input
+                    className='search-input'
+                    placeholder='Search products...'
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onFocus={() => setShow(true)}
+                    onBlur={() => setTimeout(() => setShow(false), 150)}
+                />
+                <button type='submit' className='search-go'>Search</button>
+            </form>
+            {show && suggestions.length > 0 && (
+                <ul className='suggestions-list'>
+                    {suggestions.map(s => (
+                        <li key={s.id} onMouseDown={() => {
+                            const label = s.name || s.title || ''
+                            setQuery(label)
+                            window.dispatchEvent(new CustomEvent('global:search', { detail: { query: label } }))
+                            setShow(false)
+                            let cat = s.category
+                            if (!cat) {
+                                const full = allProductsRef.current.find(p => p.id === s.id)
+                                cat = full?.category
+                            }
+                            if (cat) navigate(`/shop/${cat}?productId=${s.id}`)
+                        }}>{s.name || s.title}</li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    )
+}
 
 export default Navigation;
 

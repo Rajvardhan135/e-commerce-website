@@ -7,11 +7,7 @@ const ProductCard = ({ product }) => {
     const dispatch = useDispatch();
 
     const style = {
-        backgroundImage: `url(${product.image})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        width: '100%',
-        height: '80%'
+        backgroundImage: `url(${product.image})`
     }
 
     const onClickHandler = () => {
@@ -19,9 +15,11 @@ const ProductCard = ({ product }) => {
     }
 
     return (
-        <div className="product-card">
-            <div style={style} />
-            <p>Price: ${product.price}</p>
+    <div className="product-card" id={`product-${product.id}`}>
+            <div className="product-image" style={style} />
+            <h3 className="product-name">{product.name || product.title || 'Untitled'}</h3>
+            <p className="product-description">{product.description || product.desc || ''}</p>
+            <p className="product-price">Price: ${product.price}</p>
             <CartButton onClick={onClickHandler} style={{ margin: '10px 0' }}>Add to Cart</CartButton>
         </div>
     )

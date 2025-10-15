@@ -26,6 +26,13 @@ $nav-shadow: 0 2px 12px rgba(0,0,0,0.08);
             display: none;
         }
     }
+    .nav-search {
+        flex: 1 1 360px;
+        margin: 0 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     .nav-buttons {
         display: flex;
         align-items: center;
@@ -244,5 +251,68 @@ $nav-shadow: 0 2px 12px rgba(0,0,0,0.08);
         min-width: 95vw;
         left: 0;
         right: 0;
+    }
+}
+
+.global-search {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .search-input {
+        flex: 1 1 auto;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #e6e6e6;
+        // color: #181b1e;
+        transition: box-shadow 0.15s, border-color 0.15s;
+        &:focus {
+            outline: none;
+            border-color: $accent;
+            box-shadow: 0 0 0 4px rgba(255,200,2,0.12);
+        }
+    }
+
+    .search-go {
+        background: $accent;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .suggestions-list {
+        position: absolute;
+        top: 44px;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border: 1px solid #eee;
+        z-index: 1200;
+        list-style: none;
+        padding: 6px 0;
+        max-height: 300px;
+        overflow-y: auto;
+
+        li { padding: 8px 12px; cursor: pointer; color: #181b1e }
+        li:hover { background: #fafafa }
+    }
+
+    .filter-icon {
+        background: transparent;
+        border: none;
+        margin-left: 8px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px;
+        border-radius: 8px;
+        &:hover { background: #f6f6f6 }
     }
 }
