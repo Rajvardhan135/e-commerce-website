@@ -115,4 +115,13 @@
   position: relative;
   top: -8px;
   left: -33px;
+}
+.profile-img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #f3f4f6;
+  border: 2px solid #FFC802;
+  display: block;
 }/*# sourceMappingURL=navigation.styles.css.map */
