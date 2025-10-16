@@ -36,6 +36,25 @@ export const getAllProducts = async () => {
   }
 };
 
+export const getOneProductPerCategory = async () => {
+  try {
+    const categories = await getAllCategories();
+    const products = [];
+    for (const category of categories) {
+      const q = query(collection(db, "products"), where("category", "==", category.name));
+      const snapshot = await getDocs(q);
+      if (!snapshot.empty) {
+        const doc = snapshot.docs[0];
+        products.push({ id: doc.id, ...doc.data() });
+      }
+    }
+    return products;
+  } catch (error) {
+    console.error("Error fetching one product per category:", error);
+    return [];
+  }
+};
+
 /* ============================
    🔹 ADMIN: ADD FUNCTIONS
 ============================ */

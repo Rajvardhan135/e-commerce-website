@@ -7,7 +7,13 @@ const ProductCard = ({ product }) => {
     const dispatch = useDispatch();
 
     const style = {
-        backgroundImage: `url(${product.image})`
+        backgroundImage: `url(${product.image})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        width: '100%',
+        height: '180px',
+        borderRadius: '10px',
+        marginBottom: '16px'
     }
 
     const onClickHandler = () => {

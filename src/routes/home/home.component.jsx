@@ -5,28 +5,28 @@ import { ReactComponent as Ship } from '../../assets/shipping.svg';
 import { ReactComponent as Refund } from '../../assets/refund.svg';
 import { ReactComponent as Payment } from '../../assets/payment.svg';
 import { useNavigate } from 'react-router-dom';
-import { getAllProducts } from '../../utils/fakestore/fakestore.utils';
+import { getOneProductPerCategory } from '../../utils/firebase/firebaseStoreServices';
 import CategoryPreview from '../../components/categoryPreview/category-preview.component';
 
 const Home = () => {
     const navigate = useNavigate();
-    const [highetRatedItems, setHighestRatedItems] = useState([]);
+    const [categoryPreviewProducts, setCategoryPreviewProducts] = useState([]);
 
     const onNavigateHandler = (route) => {
         navigate(route)
     }
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchPreviewProducts = async () => {
             try {
-                const products = await getAllProducts();
-                setHighestRatedItems(products.filter(product => product.rating.rate > 4.5))
+                const products = await getOneProductPerCategory();
+                setCategoryPreviewProducts(products);
             } catch (error) {
-                alert('Please reload error in fetchind data from api')
+                alert('Please reload, error in fetching data from api');
             }
-        }
-        fetchData();
-    }, [])
+        };
+        fetchPreviewProducts();
+    }, []);
 
     return (
         <div className='home'>
@@ -69,7 +69,7 @@ const Home = () => {
 
             <div className='highest-rated-product-container'>
                 <h1 className='rating-header'>Our highest Rated Products</h1>
-                {highetRatedItems && <CategoryPreview products={highetRatedItems} />}
+                {categoryPreviewProducts && <CategoryPreview products={categoryPreviewProducts} />}
             </div>
         </div>
     );
