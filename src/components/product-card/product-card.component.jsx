@@ -21,14 +21,11 @@ const ProductCard = ({ product }) => {
     }
 
     return (
-        <div className="product-card">
-            <div style={style} />
-            <h3 className="product-title" style={{ margin: '8px 0', fontWeight: 700, fontSize: '1.1rem', color: '#181b1e' }}>
-                {product.name || product.title}
-            </h3>
-            <p style={{ color: '#2563eb', fontWeight: 600, margin: '4px 0' }}>
-                ${product.price}
-            </p>
+    <div className="product-card" id={`product-${product.id}`}>
+            <div className="product-image" style={style} />
+            <h3 className="product-name">{product.name || product.title || 'Untitled'}</h3>
+            <p className="product-description">{product.description || product.desc || ''}</p>
+            <p className="product-price">Price: ${product.price}</p>
             <CartButton onClick={onClickHandler} style={{ margin: '10px 0' }}>Add to Cart</CartButton>
         </div>
     )
