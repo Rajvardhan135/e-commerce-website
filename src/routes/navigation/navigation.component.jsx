@@ -1,20 +1,18 @@
-import { Outlet } from 'react-router-dom';
-import { ReactComponent as Logo } from '../../assets/logo.svg'
-import { ReactComponent as Bag } from '../../assets/bag.svg'
-import { ReactComponent as Menu } from '../../assets/menu-bar.svg'
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../../store/user/user.selector';
-import { signOutUser } from '../../utils/firebase/firebase.utils';
-import './navigation.styles.scss'
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { selectCartCount } from '../../store/cart/cart.selector';
-import { selectIsCartOpen, selectCartItems } from '../../store/cart/cart.selector';
-import { setCartOpen } from '../../store/cart/cart.action';
-import { useDispatch } from 'react-redux';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { ReactComponent as Bag } from '../../assets/bag.svg';
+import { ReactComponent as Logo } from '../../assets/logo.svg';
+import { ReactComponent as Menu } from '../../assets/menu-bar.svg';
 import CartPreview from '../../components/cart-preview/cart-preview.component';
-import { useNavigate } from 'react-router-dom';
+import { useCurrency } from '../../context/CurrencyContext';
+import { setCartOpen } from '../../store/cart/cart.action';
+import { selectCartCount, selectCartItems, selectIsCartOpen } from '../../store/cart/cart.selector';
+import { selectCurrentUser } from '../../store/user/user.selector';
+import { getCurrencySymbol } from '../../utils/currency.utils';
+import { signOutUser } from '../../utils/firebase/firebase.utils';
 import { getAllProducts } from '../../utils/firebase/firebaseStoreServices';
+import './navigation.styles.scss';
 
 const Navigation = () => {
     const currentUser = useSelector(selectCurrentUser);
@@ -58,6 +56,7 @@ const Navigation = () => {
         <div>
             <nav className='nav'>
                 <Logo onClick={onLogoClick} />
+                
                 <div className='nav-links'>
                     <NavLink className='nav-link' to='/shop/mens'>MEN</NavLink>
                     <NavLink className='nav-link' to='/shop/womens'>WOMEN</NavLink>
@@ -178,6 +177,16 @@ const Navigation = () => {
 };
 
 // Local SearchBar component (defined before Navigation)
+function CurrencySelector() {
+    const { currency, setCurrency, supportedCurrencies } = useCurrency();
+    return (
+        <select className='currency-select' value={currency} onChange={(e) => setCurrency(e.target.value)}>
+            {supportedCurrencies.map((c) => (
+                <option key={c} value={c}>{getCurrencySymbol(c)} {c}</option>
+            ))}
+        </select>
+    )
+}
 function SearchBar() {
     const [query, setQuery] = useState('')
     const [suggestions, setSuggestions] = useState([])
@@ -237,17 +246,22 @@ function SearchBar() {
 
     return (
         <div className='global-search'>
-            <form onSubmit={onSubmit} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <input
-                    className='search-input'
-                    placeholder='Search products...'
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    onFocus={() => setShow(true)}
-                    onBlur={() => setTimeout(() => setShow(false), 150)}
-                />
-                <button type='submit' className='search-go'>Search</button>
-            </form>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%' }}>
+                <form onSubmit={onSubmit} style={{ display: 'flex', alignItems: 'center', gap: 8, flex: '1 1 auto' }}>
+                    <input
+                        className='search-input'
+                        placeholder='Search products...'
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        onFocus={() => setShow(true)}
+                        onBlur={() => setTimeout(() => setShow(false), 150)}
+                    />
+                    <button type='submit' className='search-go'>Search</button>
+                </form>
+                <div style={{ marginLeft: 8 }}>
+                    <CurrencySelector />
+                </div>
+            </div>
             {show && suggestions.length > 0 && (
                 <ul className='suggestions-list'>
                     {suggestions.map(s => (

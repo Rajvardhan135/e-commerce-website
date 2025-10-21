@@ -260,7 +260,7 @@ $nav-shadow: 0 2px 12px rgba(0,0,0,0.08);
     max-width: 640px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px; // slightly larger gap
 
     .search-input {
         flex: 1 1 auto;
@@ -284,6 +284,17 @@ $nav-shadow: 0 2px 12px rgba(0,0,0,0.08);
         border-radius: 8px;
         font-weight: 700;
         cursor: pointer;
+    }
+
+    .currency-select {
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid #e6e6e6;
+        background: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        min-width: 88px;
+        text-align: left;
     }
 
     .suggestions-list {

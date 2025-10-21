@@ -17,6 +17,7 @@ import { getAllCategories } from './utils/fakestore/fakestore.utils';
 import { useDispatch } from 'react-redux';
 import { getProducts } from './utils/firebase/firebaseStoreServices';
 
+import { CurrencyProvider } from './context/CurrencyContext';
 import AdminUsersPage from './routes/adminUsers/AdminUsersPage';
 import PaymentFail from './routes/PaymentFail/PaymentFail';
 import ProfilePage from './routes/profile/profile';
@@ -53,7 +54,8 @@ function App() {
   }, [dispatch])
 
   return (
-    <Routes>
+    <CurrencyProvider>
+      <Routes>
       <Route path='sign-in' element={<SignIn />} />
       <Route path='sign-up' element={<SignUp />} />
       <Route path='/' element={<Navigation />}>
@@ -65,8 +67,9 @@ function App() {
         <Route path='payment-fail' element={<PaymentFail />} />
         <Route path='profile' element={<ProfilePage />} />
         <Route path='adminUsers' element={<AdminUsersPage />} />
-      </Route>
-    </Routes>
+        </Route>
+        </Routes>
+      </CurrencyProvider>
   );
 }
 
