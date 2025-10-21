@@ -1,12 +1,12 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import CartButton from '../../components/button/cart-button.component';
+import CheckoutItem from '../../components/checkout-item/checkout-item.component';
+import { useCurrency } from '../../context/CurrencyContext';
 import { selectCartItems, selectCartTotal } from '../../store/cart/cart.selector';
 import { selectCurrentUser } from '../../store/user/user.selector';
-import CheckoutItem from '../../components/checkout-item/checkout-item.component';
+import { convertPrice, getCurrencySymbol } from '../../utils/currency.utils';
 import './checkout.styles.scss';
-import CartButton from '../../components/button/cart-button.component';
-import { useNavigate } from 'react-router-dom';
-import { clearCart } from '../../store/cart/cart.action';
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
@@ -14,6 +14,9 @@ const Checkout = () => {
   const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { currency } = useCurrency();
+  const symbol = getCurrencySymbol(currency);
+  const displayTotal = convertPrice(Number(cartTotal || 0), currency);
 
   const onClickHandler = async () => {
     if (cartTotal <= 0) {
@@ -45,7 +48,7 @@ const Checkout = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          amount: cartTotal.toFixed(2),
+        amount: cartTotal.toFixed(2),
           firstname: currentUser.displayName || "Guest",
           email: currentUser.email,
           phone: "9999999999",
@@ -81,7 +84,7 @@ const Checkout = () => {
         {cartItems.map((item) => <CheckoutItem item={item} key={item.id} />)}
       </div>
       <div className='checkout-total'>
-        <span className='total'>Total $<span className='total-cost'>{cartTotal.toFixed(2)}</span></span>
+        <span className='total'>Total {symbol}<span className='total-cost'>{displayTotal.toFixed(2)}</span> {currency}</span>
       </div>
       <CartButton
         className='checkout-button'

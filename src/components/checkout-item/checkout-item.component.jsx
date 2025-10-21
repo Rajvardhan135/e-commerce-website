@@ -1,10 +1,15 @@
-import { addItemToCart, removeItemFromCart, clearItemFromCart } from '../../store/cart/cart.action'
-import './checkout-item.styles.scss';
 import { useDispatch } from 'react-redux';
+import { useCurrency } from '../../context/CurrencyContext';
+import { addItemToCart, clearItemFromCart, removeItemFromCart } from '../../store/cart/cart.action';
+import { convertPrice, getCurrencySymbol } from '../../utils/currency.utils';
+import './checkout-item.styles.scss';
 
 const CheckoutItem = ({ item }) => {
     const { title, description, image, quantity, price } = item;
     const dispatch = useDispatch();
+    const { currency } = useCurrency();
+    const symbol = getCurrencySymbol(currency);
+    const displayPrice = convertPrice(Number(price || 0), currency);
 
     const onAddItem = () => {
         dispatch(addItemToCart(item))
@@ -26,7 +31,7 @@ const CheckoutItem = ({ item }) => {
                     Quantity <span className='quantity-arrow' onClick={onRemoveItem}>&#10094;</span> {quantity} <span className='quantity-arrow' onClick={onAddItem}>&#10095;</span>
                     <span className='clear-button' onClick={onClearItem}>&#10005;</span>
                 </div>
-                <span>Price: ${price}</span>
+                <span>Price: {symbol}{displayPrice.toFixed(2)} {currency}</span>
             </div>
         </div>
     )

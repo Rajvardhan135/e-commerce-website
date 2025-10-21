@@ -1,27 +1,28 @@
 import { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.scss';
 
-import Home from './routes/home/home.component';
+import AdminDashboard from './routes/admin/admin-dashboard.component';
 import Checkout from './routes/checkout/checkout.component';
+import Home from './routes/home/home.component';
 import Navigation from './routes/navigation/navigation.component';
+import Shop from './routes/shop/shop.component';
 import SignIn from './routes/sign-in/sign-in.component';
 import SignUp from './routes/sign-up/sign-up.component';
-import Shop from './routes/shop/shop.component';
-import AdminDashboard from './routes/admin/admin-dashboard.component';
 
 import { setCategory } from './store/categories/category.action';
 import { getAllCategories } from './utils/fakestore/fakestore.utils';
 // import { getProducts } from './utils/fakestore/fakestore.utils';
-import { getProducts } from './utils/firebase/firebaseStoreServices';
 import { useDispatch } from 'react-redux';
+import { getProducts } from './utils/firebase/firebaseStoreServices';
 
-import { onAuthStateChangedListener } from './utils/firebase/firebase.utils';
-import { setCurrentUser } from './store/user/user.action';
-import PaymentSuccess from './routes/successpage/SuccessPage';
+import { CurrencyProvider } from './context/CurrencyContext';
+import AdminUsersPage from './routes/adminUsers/AdminUsersPage';
 import PaymentFail from './routes/PaymentFail/PaymentFail';
 import ProfilePage from './routes/profile/profile';
-import AdminUsersPage from './routes/adminUsers/AdminUsersPage';
+import PaymentSuccess from './routes/successpage/SuccessPage';
+import { setCurrentUser } from './store/user/user.action';
+import { onAuthStateChangedListener } from './utils/firebase/firebase.utils';
 
 function App() {
   const dispatch = useDispatch();
@@ -52,7 +53,8 @@ function App() {
   }, [dispatch])
 
   return (
-    <Routes>
+    <CurrencyProvider>
+      <Routes>
       <Route path='sign-in' element={<SignIn />} />
       <Route path='sign-up' element={<SignUp />} />
       <Route path='/' element={<Navigation />}>
@@ -64,8 +66,9 @@ function App() {
         <Route path='payment-fail' element={<PaymentFail />} />
         <Route path='profile' element={<ProfilePage />} />
         <Route path='adminUsers' element={<AdminUsersPage />} />
-      </Route>
-    </Routes>
+        </Route>
+        </Routes>
+      </CurrencyProvider>
   );
 }
 
