@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.scss';
 
+import ProtectedRoute from './components/protected-route/protected-route.component';
 import AdminDashboard from './routes/admin/admin-dashboard.component';
 import Checkout from './routes/checkout/checkout.component';
 import Home from './routes/home/home.component';
@@ -60,8 +61,8 @@ function App() {
       <Route path='/' element={<Navigation />}>
         <Route index element={<Home />} />
         <Route path='shop/*' element={<Shop />} />
-        <Route path='checkout' element={<Checkout />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+  <Route path='checkout' element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+  <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
         <Route path='payment-success' element={<PaymentSuccess />} />
         <Route path='payment-fail' element={<PaymentFail />} />
         <Route path='profile' element={<ProfilePage />} />
