@@ -22,6 +22,8 @@ import AdminUsersPage from './routes/adminUsers/AdminUsersPage';
 import PaymentFail from './routes/PaymentFail/PaymentFail';
 import ProfilePage from './routes/profile/profile';
 import PaymentSuccess from './routes/successpage/SuccessPage';
+import WishlistPage from './routes/wishlist/wishlist.component';
+import OrderHistoryPage from './routes/order-history/order-history.component';
 import { setCurrentUser } from './store/user/user.action';
 import { onAuthStateChangedListener } from './utils/firebase/firebase.utils';
 
@@ -67,6 +69,8 @@ function App() {
         <Route path='payment-fail' element={<PaymentFail />} />
         <Route path='profile' element={<ProfilePage />} />
         <Route path='adminUsers' element={<AdminUsersPage />} />
+        <Route path='wishlist' element={<ProtectedRoute><WishlistPage /></ProtectedRoute>} />
+        <Route path='order-history' element={<ProtectedRoute><OrderHistoryPage /></ProtectedRoute>} />
         </Route>
         </Routes>
       </CurrencyProvider>

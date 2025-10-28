@@ -1,0 +1,92 @@
+.order-history-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .orders-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .order-item {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+
+            .order-date, .order-id {
+                color: #666;
+                font-size: 0.9rem;
+            }
+        }
+
+        .order-products {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            .order-product {
+                display: flex;
+                gap: 15px;
+                padding: 10px;
+                background-color: #f9f9f9;
+                border-radius: 4px;
+
+                img {
+                    width: 80px;
+                    height: 80px;
+                    object-fit: cover;
+                    border-radius: 4px;
+                }
+
+                .product-details {
+                    h4 {
+                        margin: 0 0 8px 0;
+                        font-size: 1rem;
+                    }
+
+                    p {
+                        margin: 4px 0;
+                        color: #666;
+                        font-size: 0.9rem;
+                    }
+                }
+            }
+        }
+
+        .order-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+
+            .order-total {
+                font-weight: bold;
+                font-size: 1.1rem;
+            }
+
+            .order-status {
+                padding: 6px 12px;
+                border-radius: 4px;
+                background-color: #e8f5e9;
+                color: #2e7d32;
+                font-size: 0.9rem;
+            }
+        }
+    }
+}

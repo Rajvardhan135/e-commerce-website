@@ -187,6 +187,21 @@ $nav-shadow: 0 2px 12px rgba(0,0,0,0.08);
             align-items: center;
             margin-bottom: 12px;
         }
+        .profile-link {
+            display: block;
+            padding: 8px 12px;
+            color: $primary;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            transition: background 0.2s;
+            font-weight: 500;
+
+            &:hover {
+                background: #f8f8f8;
+                color: $accent;
+            }
+        }
         .profile-signout {
             background: $accent;
             color: #181b1e;
@@ -223,6 +238,45 @@ $nav-shadow: 0 2px 12px rgba(0,0,0,0.08);
     &:hover {
         transform: scale(1.08) rotate(-3deg);
     }
+}
+
+.wishlist-bag {
+    position: relative;
+    .item-num {
+        position: absolute;
+        top: -8px;
+        left: 18px;
+        background: #ffebee;
+        color: #d81b60;
+        font-size: 0.85rem;
+        font-weight: 700;
+        border-radius: 50%;
+        padding: 2px 7px;
+        min-width: 22px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .wishlist-icon { background: transparent; border: none; font-size: 20px; cursor: pointer }
+}
+
+.wishlist-nav {
+    display: flex;
+    flex-direction: column;
+    width: 360px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin-top: 64px;
+    background: #fff;
+    box-shadow: -8px 0 24px rgba(0,0,0,0.12);
+    height: 100vh;
+    z-index: 1100;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+    opacity: 0;
+    pointer-events: none;
+    max-height: 100vh;
+    overflow-y: auto;
 }
 
 @media (max-width: $small-screen) {

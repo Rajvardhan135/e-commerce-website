@@ -1,4 +1,4 @@
-import { getFirestore, collection, addDoc, getDocs, query, where } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs, query, where, orderBy } from "firebase/firestore";
 import { db } from "./firebase.utils";
 
 /* ============================
@@ -83,6 +83,42 @@ export const addProduct = async (product) => {
     return docRef.id;
   } catch (error) {
     console.error("Error adding product:", error);
+    throw error;
+  }
+};
+
+/* ============================
+   🔹 ORDER HISTORY FUNCTIONS
+============================ */
+
+export const fetchUserOrders = async (userId) => {
+  try {
+    const q = query(
+      collection(db, "orders"),
+      where("user.uid", "==", userId),
+      orderBy("createdAt", "desc")
+    );
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+  } catch (error) {
+    console.error("Error fetching user orders:", error);
+    throw error;
+  }
+};
+
+export const addOrder = async (orderData) => {
+  try {
+    const docRef = await addDoc(collection(db, "orders"), {
+      ...orderData,
+      createdAt: new Date(),
+    });
+    console.log("✅ Order added with ID:", docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error("Error adding order:", error);
     throw error;
   }
 };

@@ -11,6 +11,30 @@
     justify-content: flex-start;
     border-radius: 15px;
 
+    .wishlist-button {
+        padding: 8px 15px;
+        margin-top: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: #f8f8f8;
+        }
+
+        &.in-wishlist {
+            background-color: #ffebee;
+            border-color: #ff4081;
+            color: #ff4081;
+
+            &:hover {
+                background-color: #ffe0e6;
+            }
+        }
+    }
+
     .product-image {
         width: 100%;
         height: 200px;
