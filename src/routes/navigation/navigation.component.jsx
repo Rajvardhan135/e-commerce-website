@@ -5,6 +5,7 @@ import { ReactComponent as Bag } from '../../assets/bag.svg';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as Menu } from '../../assets/menu-bar.svg';
 import CartPreview from '../../components/cart-preview/cart-preview.component';
+import WishlistPreview from '../../components/wishlist-preview/wishlist-preview.component';
 import { useCurrency } from '../../context/CurrencyContext';
 import { setCartOpen } from '../../store/cart/cart.action';
 import { selectCartCount, selectCartItems, selectIsCartOpen } from '../../store/cart/cart.selector';
@@ -18,10 +19,13 @@ const Navigation = () => {
     const currentUser = useSelector(selectCurrentUser);
     const isCartOpen = useSelector(selectIsCartOpen);
     const cartItems = useSelector(selectCartItems);
+    const wishlistItems = useSelector((state) => state.wishlist?.wishlistItems || []);
     const dispatch = useDispatch()
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [isProfileOpen, setProfileOpen] = useState(false);
+    const [isWishlistOpen, setWishlistOpen] = useState(false);
     const profileRef = useRef();
+    const wishlistRef = useRef();
     const cartCount = useSelector(selectCartCount);
     const navigate = useNavigate();
 
@@ -29,6 +33,9 @@ const Navigation = () => {
         const handleClickOutside = (event) => {
             if (profileRef.current && !profileRef.current.contains(event.target)) {
                 setProfileOpen(false);
+            }
+            if (wishlistRef.current && !wishlistRef.current.contains(event.target)) {
+                setWishlistOpen(false);
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
@@ -38,12 +45,16 @@ const Navigation = () => {
     const onMenuClick = () => {
         setMenuOpen(!isMenuOpen);
         isCartOpen && dispatch(setCartOpen(false));
+        isWishlistOpen && setWishlistOpen(false);
     }
 
     const onCartClick = () => {
         dispatch(setCartOpen(!isCartOpen));
         isMenuOpen && setMenuOpen(false);
+        isWishlistOpen && setWishlistOpen(false);
     }
+
+    
 
     const onLogoClick = () => {
         navigate('/')
@@ -123,7 +134,16 @@ const Navigation = () => {
                                             {currentUser.displayName || currentUser.email}
                                         </div>
                                     </div>
-                                    <button className="profile-signout" onClick={signOutUser}>
+                                        <NavLink to="/profile" className="profile-link" onClick={() => setProfileOpen(false)}>
+                                            Profile
+                                        </NavLink>
+                                        <NavLink to="/wishlist" className="profile-link" onClick={() => setProfileOpen(false)}>
+                                            My Wishlist
+                                        </NavLink>
+                                        <NavLink to="/order-history" className="profile-link" onClick={() => setProfileOpen(false)}>
+                                            Order History
+                                        </NavLink>
+                                        <button className="profile-signout" onClick={signOutUser}>
                                         Sign Out
                                     </button>
                                 </div>
@@ -138,6 +158,12 @@ const Navigation = () => {
                         <Bag className='nav-button' onClick={onCartClick} />
                         <span className='item-num'>{cartCount}</span>
                     </div>
+                    <div className='wishlist-bag'>
+                        <NavLink to='/wishlist' className='nav-button wishlist-icon' aria-label='Wishlist' title='View Wishlist'>
+                            {wishlistItems.length > 0 ? '❤️' : '🤍'}
+                        </NavLink>
+                        <span className='item-num'>{wishlistItems.length}</span>
+                    </div>
                     <div onClick={onMenuClick}>
                         <Menu className='nav-button menu' />
                     </div>
@@ -145,6 +171,9 @@ const Navigation = () => {
             </nav>
             <div className={cartMenu}>
                 <CartPreview cartItems={cartItems} />
+            </div>
+            <div ref={wishlistRef} className={isWishlistOpen ? 'wishlist-nav open' : 'wishlist-nav'}>
+                <WishlistPreview />
             </div>
             <div className={menu}>
                 <NavLink className='nav-link drawer-nav-link drawer-first-link' to='/shop/mens' onClick={onMenuClick}>MEN</NavLink>
@@ -168,6 +197,7 @@ const Navigation = () => {
                     onClick={() => {
                         setMenuOpen(false);
                         dispatch(setCartOpen(false));
+                        setWishlistOpen(false);
                     }}
                 />
             )}
@@ -240,9 +270,7 @@ function SearchBar() {
         setShow(false)
     }, [query, suggestions, navigate])
 
-    const onFilterClick = () => {
-        window.dispatchEvent(new CustomEvent('global:toggleFilters'))
-    }
+    
 
     return (
         <div className='global-search'>
