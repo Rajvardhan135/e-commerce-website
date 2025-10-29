@@ -93,16 +93,35 @@ export const addProduct = async (product) => {
 
 export const fetchUserOrders = async (userId) => {
   try {
+    console.log('Fetching orders for userId:', userId); // Debug log
+
     const q = query(
       collection(db, "orders"),
       where("user.uid", "==", userId),
       orderBy("createdAt", "desc")
     );
+    
     const snapshot = await getDocs(q);
-    return snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data()
-    }));
+    console.log('Firestore snapshot:', snapshot.size, 'documents'); // Debug log
+
+    const orders = snapshot.docs.map(doc => {
+      const data = doc.data();
+      // Normalize: some documents use `items`, others use `products`
+      const normalizedItems = data.items ?? data.products ?? [];
+      const order = {
+        id: doc.id,
+        items: Array.isArray(normalizedItems) ? normalizedItems : [],
+        user: data.user,
+        createdAt: data.createdAt ?? data.date,
+        status: data.status ?? data.state ?? 'processing',
+        ...data
+      };
+      console.log('Processed order (normalized):', order); // Debug log
+      return order;
+    });
+
+    console.log('Returning orders:', orders); // Debug log
+    return orders;
   } catch (error) {
     console.error("Error fetching user orders:", error);
     throw error;

@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectOrders, selectOrdersLoading, selectOrdersError, fetchOrders } from '../../store/orders/order-history.reducer';
 import { useCurrency } from '../../context/CurrencyContext';
 import { convertPrice, getCurrencySymbol } from '../../utils/currency.utils';
 import { Spinner } from '../../components/spinner/spinner.component';
 import './order-history.styles.scss';
+
 
 const OrderHistoryPage = () => {
     const dispatch = useDispatch();
@@ -17,9 +18,27 @@ const OrderHistoryPage = () => {
 
     useEffect(() => {
         if (currentUser) {
+            console.log('Current User:', currentUser); // Debug log
             dispatch(fetchOrders(currentUser.uid));
         }
     }, [dispatch, currentUser]);
+
+    // Debug logs
+    useEffect(() => {
+        console.log('Orders from state:', orders);
+        console.log('Loading state:', isLoading);
+        console.log('Error state:', error);
+    }, [orders, isLoading, error]);
+
+    // ensure orders is an array and filter safely
+    const filteredOrders = useMemo(() => {
+        if (!currentUser) return [];
+        if (!Array.isArray(orders)) {
+            console.warn('orders is not an array in state:', orders);
+            return [];
+        }
+        return orders.filter(order => order?.user?.uid === currentUser.uid);
+    }, [orders, currentUser]);
 
     const getOrderDate = (order) => {
         if (order.createdAt && typeof order.createdAt.seconds === 'number') {
@@ -32,15 +51,12 @@ const OrderHistoryPage = () => {
         return new Date();
     };
 
-    const filteredOrders = currentUser
-        ? orders.filter(order => order.user && order.user.uid === currentUser.uid)
-        : [];
-
-    const calculateOrderTotal = (items) => {
-        const total = items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    const calculateOrderTotal = (items = []) => {
+        const total = items.reduce((acc, item) => acc + ((item?.price || 0) * (item?.quantity || 0)), 0);
         return convertPrice(total, currency);
     };
 
+    // rendering part: guard the inner map over items
     return (
         <div className='order-history-container'>
             <h2>Order History</h2>
@@ -72,22 +88,28 @@ const OrderHistoryPage = () => {
                                 </span>
                             </div>
                             <div className='order-products'>
-                                {order.items.map((item) => (
-                                    <div key={item.id} className='order-product'>
-                                        <img src={item.image} alt={item.name} />
-                                        <div className='product-details'>
-                                            <h4>{item.name}</h4>
-                                            <p>Quantity: {item.quantity}</p>
-                                            <p>Price: {symbol}{convertPrice(item.price, currency).toFixed(2)}</p>
-                                            <p>Category: {item.category}</p>
-                                            <p>Description: {item.description}</p>
+                                {(() => {
+                                    const items = Array.isArray(order.items) ? order.items : (Array.isArray(order.products) ? order.products : []);
+                                    return items.map((item) => (
+                                        <div key={item?.id ?? `${order.id}-${Math.random()}`} className='order-product'>
+                                            <img src={item?.image} alt={item?.name} />
+                                            <div className='product-details'>
+                                                <h4>{item?.name}</h4>
+                                                <p>Quantity: {item?.quantity}</p>
+                                                <p>Price: {symbol}{(convertPrice(item?.price || 0, currency)).toFixed(2)}</p>
+                                                <p>Category: {item?.category}</p>
+                                                <p>Description: {item?.description}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ));
+                                })()}
                             </div>
                             <div className='order-footer'>
                                 <span className='order-total'>
-                                    Total: {symbol}{calculateOrderTotal(order.items).toFixed(2)}
+                                    {(() => {
+                                        const items = Array.isArray(order.items) ? order.items : (Array.isArray(order.products) ? order.products : []);
+                                        return `Total: ${symbol}${calculateOrderTotal(items).toFixed(2)}`;
+                                    })()}
                                 </span>
                                 <span className='order-status'>
                                     Status: {order.status}

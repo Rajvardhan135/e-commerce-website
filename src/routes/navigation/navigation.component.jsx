@@ -54,11 +54,7 @@ const Navigation = () => {
         isWishlistOpen && setWishlistOpen(false);
     }
 
-    const onWishlistClick = () => {
-        setWishlistOpen((open) => !open);
-        isMenuOpen && setMenuOpen(false);
-        dispatch(setCartOpen(false));
-    }
+    
 
     const onLogoClick = () => {
         navigate('/')
@@ -163,9 +159,9 @@ const Navigation = () => {
                         <span className='item-num'>{cartCount}</span>
                     </div>
                     <div className='wishlist-bag'>
-                        <button className='nav-button wishlist-icon' onClick={onWishlistClick} aria-label='Wishlist'>
+                        <NavLink to='/wishlist' className='nav-button wishlist-icon' aria-label='Wishlist' title='View Wishlist'>
                             {wishlistItems.length > 0 ? '❤️' : '🤍'}
-                        </button>
+                        </NavLink>
                         <span className='item-num'>{wishlistItems.length}</span>
                     </div>
                     <div onClick={onMenuClick}>
@@ -274,9 +270,7 @@ function SearchBar() {
         setShow(false)
     }, [query, suggestions, navigate])
 
-    const onFilterClick = () => {
-        window.dispatchEvent(new CustomEvent('global:toggleFilters'))
-    }
+    
 
     return (
         <div className='global-search'>

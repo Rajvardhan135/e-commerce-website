@@ -43,18 +43,31 @@ export const orderHistorySlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // Fetch orders
             .addCase(fetchOrders.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
             })
             .addCase(fetchOrders.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.orders = action.payload;
+                // Normalize payload shapes: array OR { orders: [...] } OR { products: [...] } OR { data: [...] }
+                const payload = action.payload;
+                if (Array.isArray(payload)) {
+                    state.orders = payload;
+                } else if (Array.isArray(payload?.orders)) {
+                    state.orders = payload.orders;
+                } else if (Array.isArray(payload?.products)) {
+                    state.orders = payload.products;
+                } else if (Array.isArray(payload?.data)) {
+                    state.orders = payload.data;
+                } else {
+                    // fallback empty array
+                    state.orders = [];
+                }
+                state.error = null;
             })
             .addCase(fetchOrders.rejected, (state, action) => {
                 state.isLoading = false;
-                state.error = action.error.message;
+                state.error = action.error?.message || 'Failed to fetch orders';
             })
             // Create order
             .addCase(createOrder.pending, (state) => {
